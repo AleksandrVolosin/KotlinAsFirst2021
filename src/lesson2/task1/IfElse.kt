@@ -4,6 +4,7 @@ package lesson2.task1
 
 import lesson1.task1.discriminant
 import kotlin.math.max
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 // Урок 2: ветвления (здесь), логический тип (см. 2.2).
@@ -68,7 +69,13 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = TODO()
+fun ageDescription(age: Int): String = ageFun(age)
+fun ageFun(num:Int): String{
+    return if (num%10==1 && (num/10%10!=1)) "$num год" else when{
+        (num%10 in 2..4) && (num/10%10!=1)-> "$num года"
+        else -> "$num лет"
+    }
+}
 
 /**
  * Простая (2 балла)
@@ -81,7 +88,20 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double = TODO()
+): Double = speed(t1, v1, t2, v2, t3, v3)
+fun speed(t1:Double, v1:Double, t2:Double, v2:Double, t3:Double, v3: Double): Double{
+    val s: Double = t1 * v1 + t2 * v2 + t3 * v3
+    val s2 = s / 2
+    val s3 = s2 - v1 * t1
+    val s4 = s2 - v1 * t1 - v2 * t2
+    var t = 0.0
+    if(v1 * t1==s2) t = t1
+    if(v1*t1>s2) t = s2/v1
+    if(v1 * t1 + v2 *t2==s2)t = t1 + t2
+    if(v1 * t1<s2) t = s3 / v2 + t1
+    if(v1 * t1 +v2 * t2<s2) t = s4 / v3 + t1 +t2
+    return t
+}
 
 /**
  * Простая (2 балла)
@@ -122,7 +142,23 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int = triangle(a,b,c)
+fun triangle(a: Double,b: Double,c: Double):Int{
+    val sum=a+b+c
+    var m=0.0
+    var s=0.0
+
+    if (a>b && a>c) m=a else if (b>c && b>a) m=b else m=c
+    if (a<b && a<c) s=a else if (b<c && b<a) s=b else s=c
+
+    if ((a+b>c) && (a+c>b) && (b+c>a))
+        if (m.pow(2.0)==s.pow(2.0)+(sum-m-s).pow(2.0)) return 1
+        else if (m.pow(2.0)>s.pow(2.0)+(sum-m-s).pow(2.0)) return 2
+        else return 0
+    else return -1
+
+}
+
 
 /**
  * Средняя (3 балла)
@@ -132,4 +168,15 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = line(a, b, c, d)
+fun line(a: Int, b: Int, c: Int, d: Int): Int{
+    var s=0
+    when{
+        a==c -> if (d>b) s=d-b else if (d<=b) s=b-d else -1
+        a<c -> if ((d>=b)&&(b-c>=0)) s= b-c else if (d<b) s=d-c else s=-1
+        a>c -> if ((d>=b)) s= b-a else if ((d<b)&& (d-a>=0)) s=d-a else s=-1
+        (a==c && b==d)-> s=b-a
+    }
+    return s
+}
+
