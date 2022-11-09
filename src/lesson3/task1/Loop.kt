@@ -14,6 +14,7 @@ import kotlin.math.sqrt
  *
  * Вычисление факториала
  */
+
 fun factorial(n: Int): Double {
     var result = 1.0
     for (i in 1..n) {
@@ -21,7 +22,6 @@ fun factorial(n: Int): Double {
     }
     return result
 }
-
 /**
  * Пример
  *
@@ -80,7 +80,7 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int = (Math.pow(((Math.sqrt(5.0) + 1) / 2), n.toDouble()) / Math.sqrt(5.0) + 0.5).toInt()
 
 /**
  * Простая (2 балла)
@@ -138,7 +138,15 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var revers = 0
+    var numb = n
+    while (numb >= 1) {
+        revers = revers * 10 + (numb % 10)
+        numb /= 10
+    }
+    return revers
+}
 
 /**
  * Средняя (3 балла)
@@ -159,16 +167,7 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean {
-
-    var number = n / 10
-    val digit = n % 10
-    while (number > 0){
-        if (number % 10 !=digit) return true
-        number /=10
-    }
-    return false
-}
+fun hasDifferentDigits(n: Int): Boolean = TODO()
 
 /**
  * Средняя (4 балла)
@@ -212,4 +211,16 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var numbers = 1
+    var str = ""
+    var nn = n
+    while (nn > 0) {
+        val fibnumb = fib(numbers)
+        str = "$fibnumb"
+        numbers++
+        nn -= str.length
+    }
+    numbers = str.length - 1 + nn
+    return str[numbers].toString().toInt()
+}

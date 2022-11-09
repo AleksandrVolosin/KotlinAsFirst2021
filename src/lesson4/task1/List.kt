@@ -120,7 +120,11 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double = TODO()
+fun abs(v: List<Double>): Double =
+    when {
+        v.isEmpty() -> 0.0
+        else -> Math.sqrt(v.map { it * it}.sum())
+    }
 
 /**
  * Простая (2 балла)
@@ -157,6 +161,7 @@ fun times(a: List<Int>, b: List<Int>): Int = TODO()
  * Значение пустого многочлена равно 0 при любом x.
  */
 fun polynom(p: List<Int>, x: Int): Int = TODO()
+
 
 /**
  * Средняя (3 балла)
