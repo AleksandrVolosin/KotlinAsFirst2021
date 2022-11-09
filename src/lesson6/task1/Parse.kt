@@ -74,7 +74,21 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val months = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
+    val date = str.split(" ")
+    if (date.size == 3) {
+        try {
+            val day = date[0].toInt()
+            if ((date[1] in months) && (day in 1..31)) {
+                val month = months.indexOf(date[1]) + 1
+                return String.format("%02d.%02d.%d", day, month, date[2].toInt())
+            } else return ""
+        } catch (e: NumberFormatException) {
+            return ""
+        }
+    } else return ""
+}
 
 /**
  * Средняя (4 балла)
@@ -86,7 +100,22 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val months = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
+    try {
+        val date = digital.split(".")
+        if (date.size == 3) {
+            val day = date[0].toInt()
+            val month = date[1].toInt()
+            if (day in 1..31 && month in 1..12)
+                return ("$day ${months[month - 1]} ${date[2]}")
+            else
+                return ""
+        } else return ""
+    } catch (e: NumberFormatException) {
+        return ""
+    }
+}
 
 /**
  * Средняя (4 балла)
@@ -127,7 +156,15 @@ fun bestLongJump(jumps: String): Int = TODO()
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    val parts = jumps.split(" ")
+    var max = -1
+    for (part in 1..parts.size - 1 step 2) {
+        val maxOfParts = parts[part - 1].toInt()
+        if ('+' in parts[part] && max < maxOfParts) max = maxOfParts
+    }
+    return max
+}
 
 /**
  * Сложная (6 баллов)
@@ -138,7 +175,23 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    try {
+        val parts = expression.split(" ")
+        var result = parts[0].toInt()
+        for (i in 2..parts.size step 2) {
+            if (parts[i - 1] == "+") {
+                result += parts[i].toInt()
+            } else if (parts[i - 1] == "-") {
+                result -= parts[i].toInt()
+            }
+            else throw IllegalArgumentException()
+        }
+        return result
+    } catch (e: NumberFormatException) {
+        throw  IllegalArgumentException(e)
+    }
+}
 
 /**
  * Сложная (6 баллов)
@@ -149,7 +202,15 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    val parts = str.toLowerCase().split(" ")
+    var index = 0
+    for (i in 0..parts.size - 2) {
+        if (parts[i] == parts[i + 1]) return index
+        index += parts[i].length + 1
+    }
+    return -1
+}
 
 /**
  * Сложная (6 баллов)
@@ -162,7 +223,26 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше нуля либо равны нулю.
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    if (description.isEmpty()) return ""
+    var maxCost = 0.0
+    var nameMaxCost = ""
+    try {
+        val parts = description.split("; ")
+        for (el in parts) {
+            val product = el.split(" ")
+            if (product.size != 2) return ""
+            val maxOfParts = product[1].toDouble()
+            if (maxOfParts >= maxCost) {
+                maxCost = maxOfParts
+                nameMaxCost = product[0]
+            }
+        }
+    } catch (e: NumberFormatException) {
+        return ""
+    }
+    return nameMaxCost
+}
 
 /**
  * Сложная (6 баллов)
