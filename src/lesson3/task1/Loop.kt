@@ -74,6 +74,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  */
 fun digitNumber(n: Int): Int = TODO()
 
+
 /**
  * Простая (2 балла)
  *
@@ -87,7 +88,13 @@ fun fib(n: Int): Int =
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+    for (divisor in 2..Math.ceil(Math.sqrt(n.toDouble())).toInt()) {
+        if (n % divisor == 0)
+            return divisor
+    }
+    return n
+}
 
 /**
  * Простая (2 балла)
@@ -211,16 +218,4 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int {
-    var numbers = 1
-    var str = ""
-    var nn = n
-    while (nn > 0) {
-        val fibnumb = fib(numbers)
-        str = "$fibnumb"
-        numbers++
-        nn -= str.length
-    }
-    numbers = str.length - 1 + nn
-    return str[numbers].toString().toInt()
-}
+fun fibSequenceDigit(n: Int): Int = TODO()

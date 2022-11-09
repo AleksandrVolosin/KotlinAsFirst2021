@@ -145,9 +145,37 @@ fun ageDescription(age: Int): String {
      * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
      * Если такой треугольник не существует, вернуть -1.
      */
-    fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+    fun triangleKind(a: Double, b: Double, c: Double): Int {
+        if ((a > b + c) || (b > a + c) || (c > b + a))
+            return -1
+        val max: Double
+        val sum: Double
+        if (a > b && a > c) {
+            max = a * a
+            sum = b * b + c * c
+        } else if (b > c) {
+            max = b * b
+            sum = a * a + c * c
+        } else {
+            max = c * c
+            sum = a * a + b * b
+        }
+        if (max == sum)
+            return 1
+        else if (max < sum)
+            return 0
+        else
+            return 2
+    }
 
-    fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int= TODO()
+    fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int =
+        when {
+        (a > d || b < c) -> -1
+        (a <= d && d <= b && a <= c) -> d - c
+        (c <= b && b <= d && a < c) -> b - c
+        (c <= a && b <= d) -> b - a
+        else -> d - a
+    }
 
 
 
