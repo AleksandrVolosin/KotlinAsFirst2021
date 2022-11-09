@@ -147,7 +147,7 @@ fun ageDescription(age: Int): String {
      */
     fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
 
-    fun segmentLenght(a:Int, b:Int, c:Int, d:Int): Int = TODO()
+    fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int= TODO()
 
 
 
