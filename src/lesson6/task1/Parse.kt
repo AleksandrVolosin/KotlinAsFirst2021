@@ -100,22 +100,7 @@ fun dateStrToDigit(str: String): String {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String {
-    val months = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
-    try {
-        val date = digital.split(".")
-        if (date.size == 3) {
-            val day = date[0].toInt()
-            val month = date[1].toInt()
-            if (day in 1..31 && month in 1..12)
-                return ("$day ${months[month - 1]} ${date[2]}")
-            else
-                return ""
-        } else return ""
-    } catch (e: NumberFormatException) {
-        return ""
-    }
-}
+fun dateDigitToStr(digital: String): String = TODO()
 
 /**
  * Средняя (4 балла)
@@ -131,7 +116,13 @@ fun dateDigitToStr(digital: String): String {
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String =
+    if (!phone.contains(Regex("""\( *\)""")) &&
+        !phone.matches(Regex("""\+ ?\d""")) &&
+        phone.matches(Regex("""(\+? *\d[- \d]*(\([-\d ]+\)[-\d ]+)?)"""))
+    )
+        phone.filter { it !in " " && it !in "(" && it !in ")" && it !in "-" }
+    else ""
 
 /**
  * Средняя (5 баллов)
@@ -176,22 +167,23 @@ fun bestHighJump(jumps: String): Int {
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
 fun plusMinus(expression: String): Int {
-    try {
-        val parts = expression.split(" ")
-        var result = parts[0].toInt()
-        for (i in 2..parts.size step 2) {
-            if (parts[i - 1] == "+") {
-                result += parts[i].toInt()
-            } else if (parts[i - 1] == "-") {
-                result -= parts[i].toInt()
-            }
-            else throw IllegalArgumentException()
-        }
-        return result
-    } catch (e: NumberFormatException) {
-        throw  IllegalArgumentException(e)
+    if (!"$expression + ".matches(Regex("""(\d+ [+-] )+"""))) {
+        throw IllegalArgumentException(expression)
     }
+    val parts = Regex(""" """).split(expression)
+    var result = parts[0].toInt()
+    var i = 1
+    while (i < parts.size) {
+        result += parts[i + 1].toInt() *
+                when (parts[i].trim()) {
+                    "+" -> 1
+                    else -> -1
+                }
+        i += 2
+    }
+    return result
 }
+
 
 /**
  * Сложная (6 баллов)

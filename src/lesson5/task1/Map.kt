@@ -140,6 +140,8 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): MutableMa
  */
 fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
 
+
+
 /**
  * Средняя (3 балла)
  *

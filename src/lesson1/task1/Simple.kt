@@ -75,7 +75,8 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int =
  * Определить длину того же отрезка в метрах (в данном случае 18.98).
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
-fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double = TODO()
+fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double =
+    0.04445 * (48 * sagenes + 16 * arshins + vershoks)
 
 /**
  * Тривиальная (1 балл)
@@ -130,6 +131,9 @@ fun bank(initial: Int,percent: Int):Double{
     return g3
 }
 
+
+
+
 /**
  * Простая (2 балла)
  *
@@ -137,10 +141,10 @@ fun bank(initial: Int,percent: Int):Double{
  * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
 fun numberRevert(number: Int): Int = replacer(number)
-fun replacer(number: Int): Int{
+
+fun replacer(number: Int): Int {
     val f = number % 10
     val s = number / 10 % 10
     val t = number / 100
     return f * 100 + s * 10 + t
 }
-

@@ -170,12 +170,12 @@ fun ageDescription(age: Int): String {
 
     fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int =
         when {
-        (a > d || b < c) -> -1
-        (a <= d && d <= b && a <= c) -> d - c
-        (c <= b && b <= d && a < c) -> b - c
-        (c <= a && b <= d) -> b - a
-        else -> d - a
-    }
+            (a > d || b < c) -> -1
+            (a <= d && d <= b && a <= c) -> d - c
+            (c <= b && b <= d && a < c) -> b - c
+            (c <= a && b <= d) -> b - a
+            else -> d - a
+        }
 
 
 
