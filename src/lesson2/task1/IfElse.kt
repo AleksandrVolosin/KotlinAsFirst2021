@@ -90,21 +90,9 @@ fun ageDescription(age: Int): String {
         t1: Double, v1: Double,
         t2: Double, v2: Double,
         t3: Double, v3: Double
-    ): Double = speed(t1, v1, t2, v2, t3, v3)
+    ): Double = TODO()
 
-    fun speed(t1: Double, v1: Double, t2: Double, v2: Double, t3: Double, v3: Double): Double {
-        val s: Double = t1 * v1 + t2 * v2 + t3 * v3
-        val s2 = s / 2
-        val s3 = s2 - v1 * t1
-        val s4 = s2 - v1 * t1 - v2 * t2
-        var t = 0.0
-        if (v1 * t1 == s2) t = t1
-        if (v1 * t1 > s2) t = s2 / v1
-        if (v1 * t1 + v2 * t2 == s2) t = t1 + t2
-        if (v1 * t1 < s2) t = s3 / v2 + t1
-        if (v1 * t1 + v2 * t2 < s2) t = s4 / v3 + t1 + t2
-        return t
-    }
+
 
     /**
      * Простая (2 балла)
@@ -145,37 +133,9 @@ fun ageDescription(age: Int): String {
      * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
      * Если такой треугольник не существует, вернуть -1.
      */
-    fun triangleKind(a: Double, b: Double, c: Double): Int {
-        if ((a > b + c) || (b > a + c) || (c > b + a))
-            return -1
-        val max: Double
-        val sum: Double
-        if (a > b && a > c) {
-            max = a * a
-            sum = b * b + c * c
-        } else if (b > c) {
-            max = b * b
-            sum = a * a + c * c
-        } else {
-            max = c * c
-            sum = a * a + b * b
-        }
-        if (max == sum)
-            return 1
-        else if (max < sum)
-            return 0
-        else
-            return 2
-    }
+    fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
 
-    fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int =
-        when {
-            (a > d || b < c) -> -1
-            (a <= d && d <= b && a <= c) -> d - c
-            (c <= b && b <= d && a < c) -> b - c
-            (c <= a && b <= d) -> b - a
-            else -> d - a
-        }
+    fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
 
 
 

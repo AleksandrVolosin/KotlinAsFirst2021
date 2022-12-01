@@ -173,6 +173,10 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> = TODO()
 
+
+
+
+
 /**
  * Средняя (4 балла)
  *
@@ -188,17 +192,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
-fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
-    var price = -1.0
-    var name: String? = null
-    for ((key) in stuff)
-        if ((stuff[key]?.first == kind) && ((price == -1.0) || (price > (stuff[key]?.second ?: return null)))) {
-            price = (stuff[key]?.second ?: return null)
-            name = key
-        }
-    return name
-}
-
+fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? = TODO()
 /**
  * Средняя (3 балла)
  *
@@ -208,7 +202,8 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
+fun canBuildFrom(chars: List<Char>, word: String): Boolean =
+    (word.toLowerCase().toSet().intersect(chars.map { it.toLowerCase() }) == word.toLowerCase().toSet())
 
 /**
  * Средняя (4 балла)
@@ -298,8 +293,12 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    for (i in list.indices) if ((number - list[i] in list) && (i != list.indexOf(number - list[i])))
-        return Pair(minOf(i, list.indexOf(number - list[i])), maxOf(i, list.indexOf(number - list[i])))
+    val map = mutableMapOf<Int, Int>()
+    for (i in list.indices) {
+        if (list[i] in map) return map[list[i]]!! to i
+        else
+            map[number - list[i]] = i
+    }
     return Pair(-1, -1)
 }
 
