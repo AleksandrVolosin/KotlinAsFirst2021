@@ -91,7 +91,22 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  * Исключения (жюри, брошюра, парашют) в рамках данного задания обрабатывать не нужно
  *
  */
-fun sibilants(inputName: String, outputName: String) = TODO()
+fun sibilants(inputName: String, outputName: String)  {
+    val foo = listOf("Ж", "Ч", "Ш", "Щ")
+    val incorrect = mapOf('ы' to 'и', 'Ы' to 'И', 'я' to 'а', 'Я' to 'А', 'ю' to 'у', 'Ю' to 'У')
+    File(outputName).bufferedWriter().use {
+        for (line in File(inputName).readLines()) {
+            var res = line[0].toString()
+            for (i in 0 until line.length - 1) {
+                res +=
+                    if (line[i].uppercase() in foo && line[i + 1] in incorrect.keys) incorrect[line[i + 1]]!!
+                    else line[i + 1]
+            }
+            it.write(res)
+            it.newLine()
+        }
+    }
+}
 
 /**
  * Средняя (15 баллов)
