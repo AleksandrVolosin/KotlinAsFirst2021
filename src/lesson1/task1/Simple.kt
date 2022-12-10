@@ -13,7 +13,7 @@ import kotlin.math.*
  *
  * Вычисление квадрата целого числа
  */
-fun sqr(x: Int) = x * x
+fun sqr (x: Int) = x * x
 
 /**
  * Пример
@@ -122,14 +122,7 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
-fun accountInThreeYears(initial: Int, percent: Int): Double =
-    bank(initial,percent)
-fun bank(initial: Int,percent: Int):Double{
-    val g1 = initial + initial * (percent.toDouble() / 100)
-    val g2 = g1 + g1 * percent.toDouble() / 100
-    val g3 = g2 + g2 * percent.toDouble() / 100
-    return g3
-}
+fun accountInThreeYears(initial: Int, percent: Int): Double =  (1 + percent / 100.0).pow(3) * initial
 
 
 

@@ -92,27 +92,21 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-    val dictOfLetters = listOf('ж', 'ч', 'ш', 'щ')
-    val dictOfReplaceable = mapOf('ы' to 'и', 'я' to 'а', 'ю' to 'у')
-    val outputStream = File(outputName).bufferedWriter()
-    for (line in File(inputName).readLines()) {
-        var l = ""
-        var temp = ""
-        for (i in line.indices)
-            if (temp == "") {
-                if ((line[i].toLowerCase() in dictOfLetters) && (i != line.length - 1))
-                    if (line[i + 1] in dictOfReplaceable.keys)
-                        temp = dictOfReplaceable[line[i + 1]].toString()
-                    else if (line[i + 1].toLowerCase() in dictOfReplaceable.keys)
-                        temp = dictOfReplaceable[line[i + 1].toLowerCase()].toString().toUpperCase()
-                l += line[i].toString() + temp
-            } else
-                temp = ""
-        outputStream.write(l)
-        outputStream.newLine()
+    val foo = listOf("Ж", "Ч", "Ш", "Щ")
+    val incorrect = mapOf('ы' to 'и', 'Ы' to 'И', 'я' to 'а', 'Я' to 'А', 'ю' to 'у', 'Ю' to 'У')
+    File(outputName).bufferedWriter().use {
+        for (line in File(inputName).readLines()) {
+            var res = line[0].toString()
+            for (i in 0 until line.length - 1) {
+                res +=
+                    if (line[i].uppercase() in foo && line[i + 1] in incorrect.keys) incorrect[line[i + 1]]!!
+                    else line[i + 1]
+            }
+            it.write(res)
+            it.newLine()
+        }
     }
-    outputStream.close()
-}
+} //Так?
 
 /**
  * Средняя (15 баллов)
@@ -132,21 +126,15 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    var max = 0
-    for (line in File(inputName).readLines())
-        if (line.trim().length > max)
-            max = line.trim().length
-    val outputStream = File(outputName).bufferedWriter()
-    for (line in File(inputName).readLines()) {
-        var temp = (max - line.trim().length) / 2
-        while (temp > 0) {
-            outputStream.write(" ")
-            temp--
+    val fin = File(inputName).readLines()
+    val fout = File(outputName).bufferedWriter()
+    val maxLength = fin.maxOfOrNull { it.trim().length }
+    if (maxLength != null) {
+        for (line in fin) {
+            fout.write(" ".repeat((maxLength - line.trim().length) / 2) + line.trim() + "\n")
         }
-        outputStream.write(line.trim())
-        outputStream.newLine()
     }
-    outputStream.close()
+    fout.close()
 }
 
 
