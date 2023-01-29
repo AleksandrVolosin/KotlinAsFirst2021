@@ -72,7 +72,17 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int  {
+    var number = n
+    var counter = 0
+
+    do {
+        counter++
+        number /= 10
+    } while (number != 0)
+
+    return counter
+}
 
 
 /**
@@ -218,4 +228,20 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var i = 1
+    var count = 0
+    while (true) {
+        count += digitNumber(fib(i))
+        if (count >= n) {
+            break
+        }
+        i += 1
+    }
+    var t = fib(i)
+    while (count > n) {
+        t /= 10
+        count--
+    }
+    return t % 10
+}

@@ -63,7 +63,18 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Подчёркивание в середине и/или в конце строк значения не имеет.
  */
 fun deleteMarked(inputName: String, outputName: String) {
-    TODO()
+    val fin = File(inputName).readLines()
+    val fout = File(outputName).bufferedWriter()
+    for (line in fin) {
+        if (line.isEmpty()) {
+            fout.write("\n")
+            continue
+        }
+        if (line[0] != '_') {
+            fout.write("$line\n")
+        }
+    }
+    fout.close()
 }
 
 /**
@@ -91,9 +102,10 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  * Исключения (жюри, брошюра, парашют) в рамках данного задания обрабатывать не нужно
  *
  */
+
+val foo = listOf("Ж", "Ч", "Ш", "Щ")
+val incorrect = mapOf('ы' to 'и', 'Ы' to 'И', 'я' to 'а', 'Я' to 'А', 'ю' to 'у', 'Ю' to 'У')
 fun sibilants(inputName: String, outputName: String)  {
-    val foo = listOf("Ж", "Ч", "Ш", "Щ")
-    val incorrect = mapOf('ы' to 'и', 'Ы' to 'И', 'я' to 'а', 'Я' to 'А', 'ю' to 'у', 'Ю' to 'У')
     File(outputName).bufferedWriter().use {
         for (line in File(inputName).readLines()) {
             var res = line[0].toString()

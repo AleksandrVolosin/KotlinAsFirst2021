@@ -88,7 +88,6 @@ fun dateStrToDigit(str: String): String = TODO()
  * входными данными.
  */
 fun dateDigitToStr(digital: String): String = TODO()
-
 /**
  * Средняя (4 балла)
  *
@@ -273,3 +272,18 @@ fun fromRoman(roman: String): Int = TODO()
  *
  */
 fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
